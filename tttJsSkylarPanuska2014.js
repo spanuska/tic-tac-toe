@@ -25,7 +25,6 @@ function submitHandler(click){
 
 		assignFirstPlayer();
 		displayFirstAndSecondPlayers();
-//------------Marking the game board--------//
 		takeTurn();		
 		return false;
 }
@@ -44,26 +43,7 @@ function displayFirstAndSecondPlayers(){ //function called on player name submit
 	showPlayer();
 }
 
-//--------Display player order--------//
-function showPlayer(){ //function called in document ready, on player name submit, and in takeTurn()
-	console.log("showPlayerOrder ran") //test
-	if (activePlayer == playerA){
-		$("#turn").css("background-color", "#97DB97");
-		$("#turn").html(playerA + ", it's your turn! Click on the '?' where you want your 'X' to go.");
-	}else{
-		$("#turn").css("background-color", "#0099CC");
-		$("#turn").text(playerB + ", it's your turn! Click on the '?' where you want your 'O' to go.");
-	}
-}
-
-//------------ID active player & display results--------//
-function assignActivePlayer(){ //function called in takeTurn()
-	activePlayer = (activePlayer != playerA) ? playerA : playerB;
-	
-	console.log("assignActivePlayer ran, and the activePlayer is now " + activePlayer); //test
-}
-
-//--------Mark the game board; function called on document ready--------//
+//--------Mark the game board; function called on player name submit--------//
 function takeTurn(){
 	$(".clickable").bind({
 		click: function(){
@@ -92,6 +72,29 @@ function takeTurn(){
 		}
 	});
 }
+
+//------------ID active player & display results--------//
+function assignActivePlayer(){ //function called in takeTurn()
+	activePlayer = (activePlayer != playerA) ? playerA : playerB;
+	
+	console.log("assignActivePlayer ran, and the activePlayer is now " + activePlayer); //test
+}
+
+//--------Display player order--------//
+function showPlayer(){ //function called in takeTurn()
+	console.log("showPlayerOrder ran") //test
+	if (activePlayer == playerA){
+		$("#turn").css("background-color", "#97DB97");
+		$("#turn").html(playerA + ", it's your turn! Click on the '?' where you want your 'X' to go.");
+	}else{
+		$("#turn").css("background-color", "#0099CC");
+		$("#turn").text(playerB + ", it's your turn! Click on the '?' where you want your 'O' to go.");
+	}
+}
+
+
+
+
 
 //-JP's suggestion: get element by id, get text, make function that takes 3 parameters, check if all 3 are the same and not "?"
 
