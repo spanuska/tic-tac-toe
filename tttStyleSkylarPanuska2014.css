@@ -1,0 +1,82 @@
+/*#container div {
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    text-align: center;
+}*/
+
+#container {
+	width: 80%;
+	margin: auto;
+	padding: 20px;
+	background-color: #A9CCDB;
+	text-align: center;
+	border-radius: 10px;
+}
+
+#rightSide{
+	width: 40%;
+	display: inline-block;
+	margin: 20px;
+}
+
+#leftSide{
+	width: 40%;
+	margin: 20px;
+	display: inline-block;
+	float: left;
+	vertical-align: center;
+}
+
+.unclickable {
+	background-color: #FFFF80;
+}
+
+/*div {
+	width: 100%;
+}*/
+
+p {
+	text-align: justify;
+}
+
+#p2 {
+	text-align: center;
+}
+
+#thePlayers{
+	padding: 30px;
+}
+
+#turn{
+	padding: 20px;
+}
+
+table {
+	text-align: center;
+	border-spacing: 0;
+	vertical-align: middle;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+td {
+	height: 50px;
+	width: 50px;
+	word-wrap: break-word;
+  	border: 2px solid #B36DB4;
+  	border-collapse: collapse;
+  	padding: 5px;
+}
+
+input{
+    width: 200px;
+    padding: 5px;
+    margin: 5px;
+}
+
+#submitPlayersButton {
+	padding-left: 5px;
+	margin:	5px;
+	height: 100px;
+}
