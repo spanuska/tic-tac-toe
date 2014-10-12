@@ -1,14 +1,5 @@
 $(document).ready(function(){
-	$("#thePlayers").submit(function(event){
-//------------Identifying the players--------//
-		playerA = $("#playerA").val();
-		playerB = $("#playerB").val();
-
-		assignFirstPlayer();
-//------------Marking the game board--------//
-		takeTurn();		
-		return false;
-	});
+	$("#thePlayers").submit(submitHandler)
 })
 
 //--------Global variables--------//
@@ -17,18 +8,36 @@ var playerB;
 var firstPlayer;
 var activePlayer; 
 var coinFlip = (Math.random()<0.5) ? 1 : 2;
-	console.log("coinFlip = " + coinFlip); //test
+	
 //var boardTable; (see comments about these variables at the bottom of the document)
 //var cell;
 //var cellID;
 //var cellValue;
 //var winConditions;
 
+console.log("coinFlip = " + coinFlip); //test
+
+//--------Submit handler--------//
+function submitHandler(click){
+//------------Identifying the players--------//
+		playerA = $("#playerA").val();
+		playerB = $("#playerB").val();
+
+		assignFirstPlayer();
+		displayFirstAndSecondPlayers();
+//------------Marking the game board--------//
+		takeTurn();		
+		return false;
+}
+
 //--------Randomly decide player order--------//
-function assignFirstPlayer(){ //function called in document ready and on player name submit
+function assignFirstPlayer(){ //function called on player name submit
 	firstPlayer = (coinFlip == 1) ? playerA : playerB;
 	activePlayer = firstPlayer;
-	console.log("The first player is " + firstPlayer + " and " + activePlayer + " is the active player.");
+	console.log("The first player is " + firstPlayer + " and " + activePlayer + " is the active player."); //test
+}
+
+function displayFirstAndSecondPlayers(){ //function called on player name submit
 	var secondPlayer = (firstPlayer == playerA) ? playerB : playerA;
 	$("#thePlayers").html("The first player is " + firstPlayer + " and " + secondPlayer + " is the second player.");	
 	$("#thePlayers").css("background-color", "#B36DB4");
@@ -84,10 +93,9 @@ function takeTurn(){
 	});
 }
 
+//-JP's suggestion: get element by id, get text, make function that takes 3 parameters, check if all 3 are the same and not "?"
+
 /*winConditions = {
-
--JP's suggestion: get element by id, get text, make function that takes 3 parameters, check if all 3 are the same and not "?"
-
 	["#a1", "#a2", "#a3"],
 	["#b1", "#b2", "#b3"],
 	["#c1", "#c2", "#c3"],
@@ -131,6 +139,7 @@ cellValue = cell.text;
 
 
 /*Next steps:
+-Prohibit clicking on a cell that's already been clicked
 -Build a way to store board so that after each turn the program can...
 -Compare the state of the board to win conditions in order to...
 -(May need to modify winConditions() as written, depending on how comparison works)
