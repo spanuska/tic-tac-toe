@@ -18,13 +18,13 @@ html {
 	border-radius: 10px;
 }
 
-#rightSide{
+.rightSide{
 	width: 40%;
 	display: inline-block;
 	margin: 20px;
 }
 
-#leftSide{
+.leftSide{
 	width: 40%;
 	margin: 20px;
 	display: inline-block;
@@ -44,7 +44,7 @@ p {
 	text-align: justify;
 }
 
-#p2 {
+.goodLuck {
 	text-align: center;
 }
 
