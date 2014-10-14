@@ -5,6 +5,10 @@
     text-align: center;
 }*/
 
+html {
+	font-family: Arial, Verdana, sans-serif;
+}
+
 #container {
 	width: 80%;
 	margin: auto;
@@ -84,10 +88,13 @@ input{
 
 .X {
 	background-color: #97DB97;
-	border: 1px, solid, black;	
 }
 
 .O {
 	background-color: #0099CC;
-	border: 1px, solid, black;	
+}
+
+a:link {
+	color: #B36DB4;
+
 }
