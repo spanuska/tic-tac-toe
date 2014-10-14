@@ -1,12 +1,11 @@
 $(document).ready(function(){
-	$("#thePlayers").submit(submitHandler)
+	$(".thePlayers").submit(submitHandler);
 })
-
 //--------Global variables--------//
 var playerA;
 var playerB;
 var firstPlayer;
-var activePlayer; 
+var activePlayer;
 var coinFlip = (Math.random()<0.5) ? 1 : 2;
 	
 //var boardTable; (see comments about these variables at the bottom of the document)
@@ -25,7 +24,7 @@ function submitHandler(click){
 
 		assignFirstPlayer();
 		displayFirstAndSecondPlayers();
-		takeTurn();		
+		takeTurn();
 		return false;
 }
 
@@ -38,19 +37,25 @@ function assignFirstPlayer(){ //function called on player name submit
 
 function displayFirstAndSecondPlayers(){ //function called on player name submit
 	var secondPlayer = (firstPlayer == playerA) ? playerB : playerA;
-	$("#thePlayers").html("The first player is " + firstPlayer + " and " + secondPlayer + " is the second player.");	
-	$("#thePlayers").css("background-color", "#B36DB4");
+	$(".thePlayers").text("The first player is " + firstPlayer + " and " + secondPlayer + " is the second player.");
 	showPlayer();
 }
 
 //--------Display player order--------//
 function showPlayer(){ //function called in displayFirstAndSecondPlayer() and takeTurn()
-	console.log("showPlayerOrder ran") //test
+	console.log("showPlayer ran"); //test
+
 	if (activePlayer == playerA){
-		$("#turn").css("background-color", "#97DB97");
-		$("#turn").html(playerA + ", it's your turn! Click on the '?' where you want your 'X' to go.");
+		if ($("#turn").hasClass("O")){
+			$("#turn").removeClass("O");
+		}
+		$("#turn").addClass("X");
+		$("#turn").text(playerA + ", it's your turn! Click on the '?' where you want your 'X' to go.");
 	}else{
-		$("#turn").css("background-color", "#0099CC");
+		if ($("#turn").hasClass("X")){
+			$("#turn").removeClass("X");
+		}
+		$("#turn").addClass("O");
 		$("#turn").text(playerB + ", it's your turn! Click on the '?' where you want your 'O' to go.");
 	}
 }
@@ -64,14 +69,11 @@ function takeTurn(){
 
 			if (activePlayer == playerA){
 				$(this).text("X");
-				$(this).css("background-color", "#97DB97");
-				$(this).css("border", "1px", "solid", "black");
-			}else{ 
+				$(this).addClass("X");
+			}else{
 				$(this).text("O");
-				$(this).css("background-color", "#0099CC");
-				$(this).css("border", "1px", "solid", "black");	
-			};
-			
+				$(this).addClass("O");
+			}
 			assignActivePlayer();
 			showPlayer();
 		}
@@ -85,23 +87,21 @@ function assignActivePlayer(){ //function called in takeTurn()
 	console.log("assignActivePlayer ran, and the activePlayer is now " + activePlayer); //test
 }
 
-function checkForWinConditions(){
+function checkForWinConditions(cellID1, cellID2, cellID3){
 
 }
 
 
-//-JP's suggestion: get element by id, get text, make function that takes 3 parameters, check if all 3 are the same and not "?"
-
-winConditions = {
-	[("#a1" "X", "#a2" = "X", "#a3" = "X"} || ],
-	["#b1", "#b2", "#b3"],
-	["#c1", "#c2", "#c3"],
-	["#a1", "#b1", "#c1"],
-	["#a2", "#b2", "#c2"],
-	["#a3", "#b3", "#c3"],
-	["#a1", "#b2", "#c3"],
-	["#a3", "#b2", "#c1"]
-};*/
+winConditions = [
+	["#1", "#2", "#3"],
+	["#4", "#5", "#6"],
+	["#7", "#8", "#9"],
+	["#1", "#4", "#7"],
+	["#2", "#5", "#8"],
+	["#3", "#6", "#9"],
+	["#1", "#5", "#9"],
+	["#3", "#5", "#7"]
+];
 
 /* -------- pseudocode for checking win condition --------
 function checkForWin(winConditions){
@@ -109,9 +109,6 @@ function checkForWin(winConditions){
 		if all 3 spots == X || O,
 			player wins!
 			prompt to start over;
-
-//------------Create table object (part of checking for win condition, would be part of takeTurn()...(not working yet!)--------//
-I started trying to generate this table in order to check against the win conditions but couldn't get it to work in time.
 
 
 /*Next steps:
