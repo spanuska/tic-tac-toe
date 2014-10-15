@@ -74,8 +74,8 @@ function takeTurn(){
 				$(this).text("O");
 				$(this).addClass("O");
 			}
-			assignActivePlayer();
-			showPlayer();
+			//checkForWinConditions(?,?,?);
+			
 		}
 	});
 }
@@ -88,12 +88,19 @@ function assignActivePlayer(){ //function called in takeTurn()
 }
 
 function checkForWinConditions(cellID1, cellID2, cellID3){
+	for (var i = 0; i<winConditions.length; i++){
+		if (winConditions[i] == ["X", "X", "X"] || ["O", "O", "O"]) {
 
+		}else{
+			//assignActivePlayer();
+			//showPlayer();
+		}
+	}
 }
 
 
 winConditions = [
-	["#1", "#2", "#3"],
+	[$("#1").text(), $("#2").text(), $("#3").text()],
 	["#4", "#5", "#6"],
 	["#7", "#8", "#9"],
 	["#1", "#4", "#7"],
