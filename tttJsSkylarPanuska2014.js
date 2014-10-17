@@ -1,18 +1,16 @@
 $(document).ready(function(){
 	$(".thePlayers").submit(submitHandler);
-})
+});
 //--------Global variables--------//
 var playerA;
 var playerB;
 var firstPlayer;
 var activePlayer;
 var coinFlip = (Math.random()<0.5) ? 1 : 2;
-	
-//var boardTable; (see comments about these variables at the bottom of the document)
-//var cell;
-//var cellID;
-//var cellValue;
-//var winConditions;
+var winner;
+var winConditions;
+var winX = "X,X,X";
+var winO = "O,O,O";
 
 console.log("coinFlip = " + coinFlip); //test
 
@@ -74,8 +72,8 @@ function takeTurn(){
 				$(this).text("O");
 				$(this).addClass("O");
 			}
-			//checkForWinConditions(?,?,?);
-			
+			createWinConditions();
+			checkForWinConditions();
 		}
 	});
 }
@@ -87,28 +85,42 @@ function assignActivePlayer(){ //function called in takeTurn()
 	console.log("assignActivePlayer ran, and the activePlayer is now " + activePlayer); //test
 }
 
-function checkForWinConditions(cellID1, cellID2, cellID3){
-	for (var i = 0; i<winConditions.length; i++){
-		if (winConditions[i] == ["X", "X", "X"] || ["O", "O", "O"]) {
+function createWinConditions(){
+	winConditions = [
+	[$("#1").text(), $("#2").text(), $("#3").text()],
+	[$("#4").text(), $("#5").text(), $("#6").text()],
+	[$("#7").text(), $("#8").text(), $("#9").text()],
+	[$("#1").text(), $("#4").text(), $("#7").text()],
+	[$("#2").text(), $("#5").text(), $("#8").text()],
+	[$("#3").text(), $("#6").text(), $("#9").text()],
+	[$("#1").text(), $("#5").text(), $("#9").text()],
+	[$("#3").text(), $("#5").text(), $("#7").text()]
+	];
 
-		}else{
-			//assignActivePlayer();
-			//showPlayer();
-		}
-	}
+	return winConditions;
 }
 
+function checkForWinConditions(){
+	for (var i=0; i<winConditions.length; i++) {
+		console.log("winConditions = " + winConditions);
+		console.log("winConditions[i] = " + winConditions[i]);
+		console.log("winConditions[i].toString() = " + winConditions[i].toString());
+		console.log("winConditions met?: " + (winConditions[i].toString() == winX) || (winConditions[i].toString() == winO));
+		
+		if ((winConditions[i].toString() == winX) || (winConditions[i].toString() == winO)){
+			console.log("111");
+			winner = (winConditions[i] == winX) ? playerA : playerB;
+			alert(winner + " is the winner! Contgratulations!!!");
+		} else {
+			console.log("115");
+			continue;
+		}
+	}
+	console.log("119");
+	assignActivePlayer();
+	showPlayer();
+}
 
-winConditions = [
-	[$("#1").text(), $("#2").text(), $("#3").text()],
-	["#4", "#5", "#6"],
-	["#7", "#8", "#9"],
-	["#1", "#4", "#7"],
-	["#2", "#5", "#8"],
-	["#3", "#6", "#9"],
-	["#1", "#5", "#9"],
-	["#3", "#5", "#7"]
-];
 
 /* -------- pseudocode for checking win condition --------
 function checkForWin(winConditions){
