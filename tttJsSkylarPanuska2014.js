@@ -12,7 +12,7 @@ var winConditions;
 var winX = "X,X,X";
 var winO = "O,O,O";
 
-console.log("coinFlip = " + coinFlip); //test
+console.log("coinFlip = " + coinFlip);
 
 //--------Submit handler--------//
 function submitHandler(click){
@@ -30,7 +30,7 @@ function submitHandler(click){
 function assignFirstPlayer(){ //function called on player name submit
 	firstPlayer = (coinFlip == 1) ? playerA : playerB;
 	activePlayer = firstPlayer;
-	console.log("The first player is " + firstPlayer + " and " + activePlayer + " is the active player."); //test
+	console.log("The first player is " + firstPlayer + " and " + activePlayer + " is the active player.");
 }
 
 function displayFirstAndSecondPlayers(){ //function called on player name submit
@@ -41,20 +41,18 @@ function displayFirstAndSecondPlayers(){ //function called on player name submit
 
 //--------Display player order--------//
 function showPlayer(){ //function called in displayFirstAndSecondPlayer() and takeTurn()
-	console.log("showPlayer ran"); //test
+	console.log("showPlayer ran");
 
 	if (activePlayer == playerA){
 		if ($("#turn").hasClass("O")){
 			$("#turn").removeClass("O");
 		}
-		$("#turn").addClass("X");
-		$("#turn").text(playerA + ", it's your turn! Click on the '?' where you want your 'X' to go.");
+		$("#turn").addClass("X").text(playerA + ", it's your turn! Click on the '?' where you want your 'X' to go.");
 	}else{
 		if ($("#turn").hasClass("X")){
 			$("#turn").removeClass("X");
 		}
-		$("#turn").addClass("O");
-		$("#turn").text(playerB + ", it's your turn! Click on the '?' where you want your 'O' to go.");
+		$("#turn").addClass("O").text(playerB + ", it's your turn! Click on the '?' where you want your 'O' to go.");
 	}
 }
 
@@ -62,15 +60,13 @@ function showPlayer(){ //function called in displayFirstAndSecondPlayer() and ta
 function takeTurn(){
 	$(".clickable").bind({
 		click: function(){
-			console.log("they clicked a clickable cell!"); //test
+			console.log("they clicked a clickable cell!");
 			$(this).unbind('click');
 
 			if (activePlayer == playerA){
-				$(this).text("X");
-				$(this).addClass("X");
+				$(this).text("X").addClass("X");
 			}else{
-				$(this).text("O");
-				$(this).addClass("O");
+				$(this).text("O").addClass("O");
 			}
 			createWinConditions();
 			checkForWinConditions();
@@ -82,7 +78,7 @@ function takeTurn(){
 function assignActivePlayer(){ //function called in takeTurn()
 	activePlayer = (activePlayer != playerA) ? playerA : playerB;
 	
-	console.log("assignActivePlayer ran, and the activePlayer is now " + activePlayer); //test
+	console.log("assignActivePlayer ran, and the activePlayer is now " + activePlayer);
 }
 
 function createWinConditions(){
@@ -101,6 +97,7 @@ function createWinConditions(){
 }
 
 function checkForWinConditions(){
+
 	for (var i=0; i<winConditions.length; i++) {
 		console.log("winConditions = " + winConditions);
 		console.log("winConditions[i] = " + winConditions[i]);
@@ -108,33 +105,34 @@ function checkForWinConditions(){
 		console.log("winConditions met?: " + (winConditions[i].toString() == winX) || (winConditions[i].toString() == winO));
 		
 		if ((winConditions[i].toString() == winX) || (winConditions[i].toString() == winO)){
-			console.log("111");
+			console.log("108");
 			winner = (winConditions[i] == winX) ? playerA : playerB;
+			//look up options for confirm
 			alert(winner + " is the winner! Contgratulations!!!");
+			/*if (confirm happens){
+				reload page
+			}else{
+				do something else;
+				break
+			}
+			}*/
 		} else {
-			console.log("115");
+			console.log("120");
 			continue;
 		}
 	}
-	console.log("119");
+	console.log("124");
 	assignActivePlayer();
 	showPlayer();
 }
 
-
-/* -------- pseudocode for checking win condition --------
-function checkForWin(winConditions){
-	loop through winConditions, 
-		if all 3 spots == X || O,
-			player wins!
-			prompt to start over;
-
-
 /*Next steps:
 X-Prohibit clicking on a cell that's already been clicked (unbind click)
--Build a way to store board so that after each turn the program can...
--Compare the state of the board to win conditions in order to...
--(May need to modify winConditions() as written, depending on how comparison works)
--Identify the winner
--Display winner & prompt to start the game over
+x-Build a way to store board so that after each turn the program can...
+x-Compare the state of the board to win conditions in order to...
+x-(May need to modify winConditions() as written, depending on how comparison works)
+x-Identify the winner
+x-Display winner & 
+-prompt to start the game over
+-rafactor
 -*/
