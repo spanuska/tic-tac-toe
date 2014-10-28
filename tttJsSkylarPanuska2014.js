@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$(".thePlayers").submit(submitHandler);
+	$("#names").submit(submitHandler);
 });
 //--------Global variables--------//
 var playerA;
