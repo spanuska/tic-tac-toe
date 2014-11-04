@@ -43,16 +43,18 @@ function displayFirstAndSecondPlayers(){ //function called on player name submit
 function showPlayer(){ //function called in displayFirstAndSecondPlayer() and takeTurn()
 	console.log("showPlayer ran");
 
-	if (activePlayer == playerA){
+	if ((activePlayer == playerA) && (winner === undefined)) {
 		if ($("#turn").hasClass("O")){
 			$("#turn").removeClass("O");
 		}
 		$("#turn").addClass("X").text(playerA + ", it's your turn! Click on the '?' where you want your 'X' to go.");
-	}else{
+	}else if ((activePlayer == playerB) && (winner === undefined)) {
 		if ($("#turn").hasClass("X")){
 			$("#turn").removeClass("X");
 		}
 		$("#turn").addClass("O").text(playerB + ", it's your turn! Click on the '?' where you want your 'O' to go.");
+	}else{
+		$("#turn").text("Congratulations, " + winner + " !");
 	}
 }
 
@@ -65,8 +67,10 @@ function takeTurn(){
 
 			if (activePlayer == playerA){
 				$(this).text("X").addClass("X");
-			}else{
+			}else if (activePlayer == playerB) {
 				$(this).text("O").addClass("O");
+			}else{
+				console.log("Don't make an X or an O.");
 			}
 			createWinConditions();
 			checkForWinConditions();
@@ -76,8 +80,12 @@ function takeTurn(){
 
 //------------ID active player--------//
 function assignActivePlayer(){ //function called in takeTurn()
-	activePlayer = (activePlayer != playerA) ? playerA : playerB;
 	
+	if (winner === undefined){
+		activePlayer = (activePlayer != playerA) ? playerA : playerB;
+	} else {
+		activePlayer = undefined;
+	}
 	console.log("assignActivePlayer ran, and the activePlayer is now " + activePlayer);
 }
 
@@ -109,13 +117,8 @@ function checkForWinConditions(){
 			winner = (winConditions[i] == winX) ? playerA : playerB;
 			//look up options for confirm
 			alert(winner + " is the winner! Contgratulations!!!");
-			/*if (confirm happens){
-				reload page
-			}else{
-				do something else;
-				break
-			}
-			}*/
+			displayGameOver();
+			break;
 		} else {
 			console.log("120");
 			continue;
@@ -126,13 +129,11 @@ function checkForWinConditions(){
 	showPlayer();
 }
 
+function displayGameOver(){
+	$(".thePlayers").text("Game Over!");
+}
+
 /*Next steps:
-X-Prohibit clicking on a cell that's already been clicked (unbind click)
-x-Build a way to store board so that after each turn the program can...
-x-Compare the state of the board to win conditions in order to...
-x-(May need to modify winConditions() as written, depending on how comparison works)
-x-Identify the winner
-x-Display winner & 
 -prompt to start the game over
 -rafactor
 -*/
